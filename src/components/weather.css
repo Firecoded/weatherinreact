@@ -1,0 +1,42 @@
+* {
+	margin: 0;
+	box-sizing: border-box;
+}
+.body-cont {
+	height: 100vh;
+	position: relative;
+}
+.app-cont {
+	position: relative;
+	height: 70%;
+	width: 60%;
+	top: 15%;
+	left: 20%;
+	border: 1px solid red;
+	font-size: 0;
+}
+.top-cont, .mid-cont, .bot-cont{
+	position: relative;
+	width: 100%;
+	border: 1px solid blue;
+	height: 33.33%;
+}
+.input-cont {
+	display: inline-block;
+	top: 8%;
+	left: 30%;
+}
+.real-input-cont{
+	position: absolute;
+	bottom: 0%;
+	width: 100%;
+	height: 50%;
+}
+.loc-input {
+	
+}
+.sub-button {
+	position: relative;
+	top: 8%;
+	left: 30%;
+}
