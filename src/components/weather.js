@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import './weather.css';
 import 'materialize-css/dist/css/materialize.min.css';
+import Form from './form';
+import axios from 'axios';
+import WeatherCard from "./weather_card";
 
 
 class Weather extends Component {
@@ -8,18 +11,30 @@ class Weather extends Component {
 		super(props)
 
 		this.state = {
-			location: ''
+			location: '',
+			data: ''
 		}
+		
 	}
 
 	handleInput = (e) => {
+
 		const {value} = e.target
 		this.setState({
 			location: value
 		})
 	}
-	handleSubmit = (e) => {
-
+	handleSubmit = async (e) => {
+		e.preventDefault();
+		const api_key = '903ed32048313a6ca697320fdb11c529'
+		try {
+			const resp = await axios.get(`http://api.openweathermap.org/data/2.5/forecast?q=${this.state.location},us&units=imperial&APPID=${api_key}`);
+			this.setState({
+				data: resp
+			})
+		} catch(err){
+			console.log('error', err.message)
+		}
 	}
 
 	render() {
@@ -28,16 +43,13 @@ class Weather extends Component {
 			<div className = 'body-cont'>
 				<div className = 'app-cont'>
 					<div className ='top-cont'>
-						<form onSubmit = {this.handleSubmit}>
-							<div className ="real-input-cont">
-						        <div className ="input-field col-4 s4 input-cont">
-						          	<input id="location" placeholder = 'City or Zip' name = 'location' value = {this.location} onChange = {this.handleInput} type="text"></input>							          
-						        </div>
-						        <button className = 'btn sub-button'>Go</button>
-						      </div>
-						</form>	
+						<Form input = {this.handleInput.bind(this)}
+						submit = {this.handleSubmit.bind(this)}
+						data = {this.state.location}/>
 					</div>
-					<div className ='mid-cont'></div>
+					<div className ='mid-cont'>
+						<WeatherCard/>
+					</div>
 					<div className ='bot-cont'></div>
 				</div>
 			</div>
